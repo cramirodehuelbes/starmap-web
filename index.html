@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>Charlotte Ramiro — Portfolio</title>
+<meta name="description" content="Charlotte Ramiro's portfolio, presented as a navigable star map. Fly between waypoints to view projects in satellite research, electrical engineering, and software development." />
+
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- WebGL canvas: the entire "world" -->
+  <canvas id="scene"></canvas>
+
+  <!-- Visor overlay: vignette, scanlines, corner brackets, center reticle -->
+  <div id="visor" aria-hidden="true">
+    <div class="visor-vignette"></div>
+    <div class="visor-scanlines"></div>
+    <div class="visor-corner tl"></div>
+    <div class="visor-corner tr"></div>
+    <div class="visor-corner bl"></div>
+    <div class="visor-corner br"></div>
+    <div class="visor-reticle"></div>
+  </div>
+
+  <!-- Boot / uplink sequence -->
+  <div id="boot-screen" aria-hidden="true">
+    <div id="boot-log"></div>
+    <div id="boot-bar"><div id="boot-bar-fill"></div></div>
+  </div>
+
+  <!-- HUD overlay -->
+  <div id="hud" class="hidden">
+
+    <header id="hud-top">
+      <div id="vitals">
+        <div id="vitals-brand"><span class="hud-bracket">[</span>C. RAMIRO<span class="hud-bracket">]</span></div>
+        <div id="vitals-id">
+          <span id="vitals-role">Systems Software Engineer</span>
+        </div>
+      </div>
+      <nav id="hud-nav">
+        <button class="hud-link" type="button" data-panel="about">ABOUT</button>
+        <a class="hud-link" href="documents/resume.pdf" target="_blank" rel="noopener">RESUME</a>
+        <button class="hud-link" type="button" data-panel="contact">CONTACT</button>
+        <button class="hud-link" type="button" id="sound-toggle" aria-pressed="false">SOUND: OFF</button>
+      </nav>
+    </header>
+
+    <div id="sector-readout"><span class="sector-dot">&#9679;</span><span id="sector-label"></span></div>
+
+    <div id="hud-bottom">
+      <div id="hud-hint">
+        <span id="hint-text">drag to look &middot; scroll to zoom &middot; select a waypoint to view a project</span>
+      </div>
+      <div id="hud-coords">
+        <span id="coord-readout">X 000.0&nbsp;&nbsp;Y 000.0&nbsp;&nbsp;Z 000.0</span>
+      </div>
+    </div>
+
+    <button id="return-btn" class="hidden" aria-label="Return to star map overview">
+      <span class="hud-bracket">&lt;</span> RETURN TO MAP
+    </button>
+
+  </div>
+
+  <!-- Project detail panel -->
+  <aside id="project-panel" class="hidden" aria-live="polite">
+    <button id="panel-close" aria-label="Close panel">&times;</button>
+    <div id="panel-content">
+      <div id="panel-image-wrap" class="hidden">
+        <img id="panel-image" alt="" />
+      </div>
+      <div id="panel-tag"></div>
+      <h2 id="panel-title"></h2>
+      <p id="panel-role"></p>
+      <p id="panel-description"></p>
+      <ul id="panel-stack"></ul>
+      <div id="panel-links"></div>
+    </div>
+  </aside>
+
+  <!-- About / Contact panel (reused shell) -->
+  <aside id="info-panel" class="hidden">
+    <button id="info-close" aria-label="Close panel">&times;</button>
+    <div id="info-content"></div>
+  </aside>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
